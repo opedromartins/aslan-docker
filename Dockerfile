@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
     iproute2 && \
     rm -rf /var/lib/apt/lists/*
 
-
 # Clone the Aslan repository
 RUN git clone --recurse-submodules https://github.com/project-aslan/Aslan.git /root/Aslan
 
@@ -31,8 +30,7 @@ RUN bash -c 'source /opt/ros/melodic/setup.bash && \
     catkin build'
 
 # Source the ROS environment and the Catkin workspace in the entrypoint
-RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc && \
-    echo "source /root/catkin_ws/devel/setup.bash" >> /root/.bashrc
+RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc
 
 # Set the working directory to the root folder
 WORKDIR /root
