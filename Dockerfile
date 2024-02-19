@@ -7,6 +7,9 @@ RUN apt-get update && apt-get install -y \
     git \
     nano \
     curl \
+    gnome-terminal \
+    dbus-x11 \
+    canberra-gtk-module \
     python3-catkin-tools \
     ros-melodic-socketcan-interface \
     ros-melodic-can-msgs \
@@ -30,7 +33,12 @@ RUN bash -c 'source /opt/ros/melodic/setup.bash && \
     catkin build'
 
 # Source the ROS environment and the Catkin workspace in the entrypoint
-RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc
+RUN echo "source /opt/ros/melodic/setup.bash" >> /root/.bashrc && \
+    echo "source /root/Aslan/devel/setup.bash" >> /root/.bashrc
+
+# Change run file
+RUN rm /root/Aslan/run
+COPY /files/run /root/Aslan/run
 
 # Set the working directory to the root folder
 WORKDIR /root
